@@ -3,15 +3,28 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
+    "redmi": "adb -s d88ba0a7cf40 reverse tcp:8081 tcp:8081",
+    "android": "npx react-native run-android",
+    "ios": "npx react-native run-ios",
+    "start": "npx react-native start",
     "test": "jest",
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/masked-view": "^0.1.10",
+    "@react-navigation/native": "^5.4.3",
     "react": "16.11.0",
-    "react-native": "0.62.2"
+    "react-dom": "16.8.6",
+    "react-native": "0.62.2",
+    "react-native-gesture-handler": "^1.6.1",
+    "react-native-reanimated": "^1.9.0",
+    "react-native-safe-area-context": "^2.0.0",
+    "react-native-screens": "^2.8.0",
+    "react-native-webview": "8.1.2",
+    "react-redux": "7.1.0",
+    "redux": "4.0.4",
+    "styled-components": "5.0.1",
+    "typescript": "3.8.3"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
