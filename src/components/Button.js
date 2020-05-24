@@ -10,12 +10,13 @@ function Button(props) {
   );
 }
 
-const ButtonContainer = styled.View`
-  background-color: black;
+const ButtonContainer = styled.TouchableOpacity`
+  background-color: #0059b3;
   justifyContent: center;
   height: ${layout.l};
   margin: ${layout.m};
-  elevation: 3;
+  borderRadius: ${layout.border};
+  elevation: 5;
 `
 
 const ButtonText = styled.Text`
