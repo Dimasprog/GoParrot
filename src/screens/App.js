@@ -1,15 +1,10 @@
 import React from 'react';
-import {
-  View,
-  Text,
-} from 'react-native';
+import PostScreen from "./PostScreen";
 
 function App() {
   return (
-      <View>
-        <Text>Test</Text>
-      </View>
-  )
+    <PostScreen/>
+  );
 }
 
 export default App;
