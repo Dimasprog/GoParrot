@@ -1,13 +1,17 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components/native";
 import {layout} from "../constants";
 
 function PostCard(props) {
-  const {title, id, body} = props
+  const {storeCard, title, id, body} = props
 
   function cutText(text, limit) {
     return text.length < limit ? text : text.substring(0, limit - 3) + '...'
   }
+
+  useEffect(() => {
+    storeCard({title, id, body})
+  }, [])
 
   return (
     <CardContainer>

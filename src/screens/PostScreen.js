@@ -1,18 +1,30 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, RefreshControl} from 'react-native';
-import {createStore} from "redux";
 import styled from 'styled-components/native';
 import Button from '../components/Button';
 import {cardContentUrl} from '../constants';
 import PostCard from '../components/PostCard';
+import {useDispatch, useSelector} from "react-redux";
+
+const networkErrorMessage = 'Please check out your network!';
 
 function PostScreen() {
   const [cardList, setCardList] = useState([]);
-  const networkErrorMessage = 'Please check out your network!';
+  const data = useSelector(state => state)
+  const retrieveData = useDispatch()
 
-  const store = createStore((state=[], action) => {
-    return action.type === 'ADD_CARD' ? state.concat([action.text]) : state
-  })
+  function storeCard(cardBody) {
+    retrieveData({
+      type: 'ADD_POST',
+      card: cardBody
+    })
+  }
+
+  /**
+   * This log is for testing. So, after all post cards rendering,
+   * we could test if posts was rendered in data const.
+   */
+  console.log('data', data)
 
   function fetchCardContentData() {
     fetch(cardContentUrl)
@@ -21,13 +33,8 @@ function PostScreen() {
       .catch(err => alert(`${err}.\n${networkErrorMessage}`));
   }
 
-  function storeCards(body) {
-    store.dispatch({ type: 'ADD_CARD', body }, ['Post card list'])
-  }
-
   useEffect(() => {
     fetchCardContentData();
-    storeCards(cardList)
   }, []);
 
   return (
@@ -37,7 +44,11 @@ function PostScreen() {
         data={cardList}
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => (
-          <PostCard title={item.title} id={item.userId} body={item.body} />
+          <PostCard
+            storeCard={storeCard}
+            title={item.title}
+            id={item.userId}
+            body={item.body} />
         )}
         refreshControl={
           <RefreshControl
