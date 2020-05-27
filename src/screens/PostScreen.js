@@ -24,7 +24,7 @@ function PostScreen() {
    * This log is for testing. So, after all post cards rendering,
    * we could test if posts was rendered in data const.
    */
-  console.log('data', data)
+  // console.log('data', data)
 
   function fetchCardContentData() {
     fetch(cardContentUrl)
