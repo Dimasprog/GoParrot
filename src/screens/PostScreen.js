@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 const networkErrorMessage = 'Please check out your network!';
 
-function PostScreen() {
+function PostScreen({navigation}) {
   const [cardList, setCardList] = useState([]);
   const data = useSelector(state => state)
   const retrieveData = useDispatch()
@@ -39,15 +39,17 @@ function PostScreen() {
 
   return (
     <MainContainer>
-      <Button />
+      <Button title={'RESET'} onPress={console.log} />
       <FlatList
         data={cardList}
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => (
           <PostCard
+            navigation={navigation}
             storeCard={storeCard}
             title={item.title}
-            id={item.userId}
+            id={item.id}
+            userId={item.userId}
             body={item.body} />
         )}
         refreshControl={

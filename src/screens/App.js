@@ -4,11 +4,14 @@ import {Provider} from "react-redux";
 import {createStore} from "redux";
 import {createStackNavigator} from "@react-navigation/stack";
 import {NavigationContainer} from "@react-navigation/native";
+import Status from "../components/Status";
 
 const store = createStore((state=[], action) => {
   switch (action.type) {
     case 'ADD_POST':
       return state.concat([action.card])
+    case 'ADD_PINNED_POST':
+      return state.concat([action.pinned_post])
     default:
       return state
   }
@@ -24,6 +27,7 @@ function App() {
             initialRouteName="PostScreen"
             screenOptions={{headerShown: false}}>
           <Stack.Screen name="PostScreen" component={PostScreen} />
+          <Stack.Screen name="Status" component={Status} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

@@ -1,30 +1,38 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components/native";
 import {layout} from "../constants";
 
 function PostCard(props) {
-  const {storeCard, title, id, body} = props
+  const [isPinned, setPinned] = useState(false)
+  const {navigation, storeCard, title, id, userId, body} = props
+
+  const statusParams = {
+    isPinned,
+    setPinned,
+    id,
+  }
 
   function cutText(text, limit) {
     return text.length < limit ? text : text.substring(0, limit - 3) + '...'
   }
 
   useEffect(() => {
-    storeCard({title, id, body})
+    storeCard({title, userId, body})
   }, [])
 
   return (
-    <CardContainer>
+    <CardContainer onPress={() => navigation.navigate('Status', statusParams)}>
       <Header>
+        {isPinned ? <Pin>➤</Pin> : null}
         <Title>{cutText(title, 30)}</Title>
-        <Id>{`ID: ${id}`}</Id>
+        <UserId>{`ID: ${userId}`}</UserId>
       </Header>
       <Body numberOfLines={3}>{cutText(body, 100)}</Body>
     </CardContainer>
   );
 }
 
-const CardContainer = styled.View`
+const CardContainer = styled.TouchableOpacity`
   backgroundColor: white;
   height: 100px;
   display: flex;
@@ -42,11 +50,14 @@ const Header = styled.View`
   justifyContent: space-between;
   height: ${layout.xxxl};
 `
+const Pin = styled.Text`
+  fontSize: 18px;
+`
 const Title = styled.Text`
   fontWeight: bold;
   fontSize: 18px;
 `
-const Id = styled.Text`
+const UserId = styled.Text`
   fontSize: 14px;
 `
 const Body = styled.Text`

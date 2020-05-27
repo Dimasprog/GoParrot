@@ -4,14 +4,14 @@ import {layout} from "../constants";
 
 function Button(props) {
   return (
-    <ButtonContainer>
-      <ButtonText>RESET</ButtonText>
+    <ButtonContainer onPress={() => props.onPress()}>
+      <ButtonText>{props.title}</ButtonText>
     </ButtonContainer>
   );
 }
 
 const ButtonContainer = styled.TouchableOpacity`
-  background-color: #0059b3;
+  background-color: black;
   justifyContent: center;
   height: ${layout.l};
   margin: ${layout.m};
