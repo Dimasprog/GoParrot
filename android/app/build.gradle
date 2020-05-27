@@ -164,6 +164,22 @@ android {
         }
     }
 
+    flavorDimensions "whitelabel"
+      productFlavors {
+
+        lightMode {
+          dimension "whitelabel"
+          applicationIdSuffix ".lightmode"
+          resValue "string", "white_label_app_name", "LightMode"
+        }
+
+        darkMode {
+          dimension "whitelabel"
+          applicationIdSuffix ".darkmode"
+          resValue "string", "white_label_app_name", "DarkMode"
+        }
+      }
+
     packagingOptions {
         pickFirst "lib/armeabi-v7a/libc++_shared.so"
         pickFirst "lib/arm64-v8a/libc++_shared.so"
