@@ -24,7 +24,7 @@ function PostScreen({navigation}) {
    * This log is for testing. So, after all post cards rendering,
    * we could test if posts was rendered in data const.
    */
-  // console.log('data', data)
+  console.log('data', data)
 
   function fetchCardContentData() {
     fetch(cardContentUrl)
@@ -39,7 +39,7 @@ function PostScreen({navigation}) {
 
   return (
     <MainContainer>
-      <Button title={'RESET'} onPress={console.log} />
+      <Button title={'RESET'} onPress={fetchCardContentData} />
       <FlatList
         data={cardList}
         keyExtractor={item => item.id.toString()}
@@ -48,9 +48,10 @@ function PostScreen({navigation}) {
             navigation={navigation}
             storeCard={storeCard}
             title={item.title}
-            id={item.id}
             userId={item.userId}
-            body={item.body} />
+            body={item.body}
+            isPinned={item.isPinned}
+          />
         )}
         refreshControl={
           <RefreshControl

@@ -1,20 +1,13 @@
 import React from 'react'
 import styled from 'styled-components/native';
 import Button from "./Button";
-import {useDispatch} from "react-redux";
-
 
 function Status(props) {
-  const {isPinned, setPinned, id} = props.route.params
-  const dispatch = useDispatch()
+  let {isActiveStatus, setActiveStatus} = props.route.params
 
   function pinPost() {
-    if (!isPinned) {
-      dispatch({
-        type: 'ADD_PINNED_POST',
-        pinned_post: { id, isPinned }
-      })
-      setPinned(true)
+    if (!isActiveStatus) {
+      setActiveStatus(true)
     } else {
       alert('Already pinned!')
     }
@@ -22,8 +15,8 @@ function Status(props) {
   }
 
   function unpinPost() {
-    if (isPinned) {
-      setPinned(false)
+    if (isActiveStatus) {
+      setActiveStatus(false)
     } else {
       alert('Already unpinned!')
     }

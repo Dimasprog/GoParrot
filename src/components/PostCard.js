@@ -3,27 +3,23 @@ import styled from "styled-components/native";
 import {layout} from "../constants";
 
 function PostCard(props) {
-  const [isPinned, setPinned] = useState(false)
-  const {navigation, storeCard, title, id, userId, body} = props
-
-  const statusParams = {
-    isPinned,
-    setPinned,
-    id,
-  }
+  let {navigation, storeCard, title, userId, body} = props
+  const [isActiveStatus, setActiveStatus] = useState(false)
+  const postCard = { title, userId, body, isActiveStatus} // <--Here is stored info about post status
+  const statusParams = { isActiveStatus, setActiveStatus }
 
   function cutText(text, limit) {
     return text.length < limit ? text : text.substring(0, limit - 3) + '...'
   }
 
   useEffect(() => {
-    storeCard({title, userId, body})
+    storeCard(postCard)
   }, [])
 
   return (
     <CardContainer onPress={() => navigation.navigate('Status', statusParams)}>
       <Header>
-        {isPinned ? <Pin>➤</Pin> : null}
+        {isActiveStatus ? <Pin>➤</Pin> : null}
         <Title>{cutText(title, 30)}</Title>
         <UserId>{`ID: ${userId}`}</UserId>
       </Header>
