@@ -1,25 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import styled from "styled-components/native";
 import {layout} from "../constants";
 
 function PostCard(props) {
-  let {navigation, storeCard, title, userId, body} = props
-  const [isActiveStatus, setActiveStatus] = useState(false)
-  const postCard = { title, userId, body, isActiveStatus} // <--Here is stored info about post status
-  const statusParams = { isActiveStatus, setActiveStatus }
+  const {navigation, title, userId, id, body, isPinned} = props
+  const postCard = {title, userId, body, isPinned, id}
 
   function cutText(text, limit) {
     return text.length < limit ? text : text.substring(0, limit - 3) + '...'
   }
 
-  useEffect(() => {
-    storeCard(postCard)
-  }, [])
-
   return (
-    <CardContainer onPress={() => navigation.navigate('Status', statusParams)}>
+    <CardContainer onPress={() => navigation.navigate('Status', postCard)}>
       <Header>
-        {isActiveStatus ? <Pin>➤</Pin> : null}
+        {isPinned ? <Pin>➤</Pin> : null}
         <Title>{cutText(title, 30)}</Title>
         <UserId>{`ID: ${userId}`}</UserId>
       </Header>

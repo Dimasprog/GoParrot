@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {FlatList, RefreshControl} from 'react-native';
+import React, {useEffect} from 'react';
+import {FlatList, RefreshControl, AppState} from 'react-native';
 import styled from 'styled-components/native';
 import Button from '../components/Button';
 import {cardContentUrl} from '../constants';
@@ -9,27 +9,20 @@ import {useDispatch, useSelector} from "react-redux";
 const networkErrorMessage = 'Please check out your network!';
 
 function PostScreen({navigation}) {
-  const [cardList, setCardList] = useState([]);
-  const data = useSelector(state => state)
-  const retrieveData = useDispatch()
+  const postList = useSelector(state => state)
+  const dispatch = useDispatch()
 
-  function storeCard(cardBody) {
-    retrieveData({
-      type: 'ADD_POST',
-      card: cardBody
+  function storePosts(postList) {
+    dispatch({
+      type: 'FETCH_SUCCESS',
+      postList
     })
   }
-
-  /**
-   * This log is for testing. So, after all post cards rendering,
-   * we could test if posts was rendered in data const.
-   */
-  console.log('data', data)
 
   function fetchCardContentData() {
     fetch(cardContentUrl)
       .then(res => res.json())
-      .then(data => setCardList(data))
+      .then(data => storePosts(data))
       .catch(err => alert(`${err}.\n${networkErrorMessage}`));
   }
 
@@ -41,21 +34,21 @@ function PostScreen({navigation}) {
     <MainContainer>
       <Button title={'RESET'} onPress={fetchCardContentData} />
       <FlatList
-        data={cardList}
+        data={postList}
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => (
           <PostCard
             navigation={navigation}
-            storeCard={storeCard}
             title={item.title}
             userId={item.userId}
+            id={item.id}
             body={item.body}
             isPinned={item.isPinned}
           />
         )}
         refreshControl={
           <RefreshControl
-            refreshing={cardList === []}
+            refreshing={postList === []}
             onRefresh={() => fetchCardContentData()}
           />
         }

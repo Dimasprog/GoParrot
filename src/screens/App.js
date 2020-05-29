@@ -6,14 +6,26 @@ import {createStackNavigator} from "@react-navigation/stack";
 import {NavigationContainer} from "@react-navigation/native";
 import Status from "../components/Status";
 
-const store = createStore((state=[], action) => {
+const store = createStore((posts=[], action) => {
   switch (action.type) {
-    case 'ADD_POST':
-      return state.concat([action.card])
-    case 'ADD_PINNED_POST':
-      return state.concat([action.pinned_post])
+    case 'FETCH_SUCCESS':
+      return action.postList
+    case 'PIN_POST':
+      posts[action.postId].isPinned = true
+      return posts.sort((a, b) => {
+        let x = a.isPinned
+        let y = b.isPinned
+        return x === y ? 0 : x ? -1 : 1
+      })
+    case 'UNPIN_POST':
+      posts[action.postId].isPinned = false
+      return posts.sort((a, b) => {
+        let x = a.isPinned
+        let y = b.isPinned
+        return x === y ? 0 : x ? -1 : 1
+      })
     default:
-      return state
+      return posts
   }
 })
 
