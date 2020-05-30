@@ -4,14 +4,13 @@ import {layout} from "../constants";
 
 function PostCard(props) {
   const {navigation, title, userId, id, body, isPinned} = props
-  const postCard = {title, userId, body, isPinned, id}
 
   function cutText(text, limit) {
     return text.length < limit ? text : text.substring(0, limit - 3) + '...'
   }
 
   return (
-    <CardContainer onPress={() => navigation.navigate('Status', postCard)}>
+    <CardContainer onPress={() => navigation.navigate('Status', {id})}>
       <Header>
         {isPinned ? <Pin>➤</Pin> : null}
         <Title>{cutText(title, 30)}</Title>

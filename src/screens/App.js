@@ -11,19 +11,11 @@ const store = createStore((posts=[], action) => {
     case 'FETCH_SUCCESS':
       return action.postList
     case 'PIN_POST':
-      posts[action.postId].isPinned = true
-      return posts.sort((a, b) => {
-        let x = a.isPinned
-        let y = b.isPinned
-        return x === y ? 0 : x ? -1 : 1
-      })
+      posts.find(obj => obj.id === action.postId).isPinned = true
+      return posts
     case 'UNPIN_POST':
-      posts[action.postId].isPinned = false
-      return posts.sort((a, b) => {
-        let x = a.isPinned
-        let y = b.isPinned
-        return x === y ? 0 : x ? -1 : 1
-      })
+      posts.find(obj => obj.id === action.postId).isPinned = false
+      return posts
     default:
       return posts
   }

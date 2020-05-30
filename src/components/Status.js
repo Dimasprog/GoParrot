@@ -4,8 +4,7 @@ import Button from "./Button";
 import {useDispatch} from "react-redux";
 
 function Status(props) {
-  const postId = props.route.params.id -1
-  console.log(postId)
+  const postId = props.route.params.id
   const dispatch = useDispatch()
 
   function setPostPinState(type) {

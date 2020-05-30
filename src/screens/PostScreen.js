@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {FlatList, RefreshControl, AppState} from 'react-native';
+import {FlatList, RefreshControl} from 'react-native';
 import styled from 'styled-components/native';
 import Button from '../components/Button';
 import {cardContentUrl} from '../constants';
@@ -28,7 +28,13 @@ function PostScreen({navigation}) {
 
   useEffect(() => {
     fetchCardContentData();
-  }, []);
+    navigation.addListener('focus', () => {
+      /**
+       * Here i should update and send postList to flat list data field,
+       * but i dont know how to re render return method of component!
+       */
+    })
+  }, [navigation]);
 
   return (
     <MainContainer>
