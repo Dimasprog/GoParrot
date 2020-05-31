@@ -11,11 +11,9 @@ const store = createStore((posts=[], action) => {
     case 'FETCH_SUCCESS':
       return action.postList
     case 'PIN_POST':
-      posts.find(obj => obj.id === action.postId).isPinned = true
-      return posts
+      return posts.map(post => post.id === action.postId ? {...post, isPinned: true} : post)
     case 'UNPIN_POST':
-      posts.find(obj => obj.id === action.postId).isPinned = false
-      return posts
+      return posts.map(post => post.id === action.postId ? {...post, isPinned: false} : post)
     default:
       return posts
   }

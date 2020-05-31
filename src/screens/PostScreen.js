@@ -28,19 +28,13 @@ function PostScreen({navigation}) {
 
   useEffect(() => {
     fetchCardContentData();
-    navigation.addListener('focus', () => {
-      /**
-       * Here i should update and send postList to flat list data field,
-       * but i dont know how to re render return method of component!
-       */
-    })
-  }, [navigation]);
+  }, []);
 
   return (
     <MainContainer>
       <Button title={'RESET'} onPress={fetchCardContentData} />
       <FlatList
-        data={postList}
+        data={postList.slice().sort((a, b) => a.isPinned === b.isPinned ? 0 : a.isPinned ? -1 : 1)}
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => (
           <PostCard
