@@ -6,3 +6,5 @@
 ![](flavors.jpg)
 # Phase 2
 ![](./src/phase_2.gif)
+# Phase 3
+![](./src/phase_3.gif)

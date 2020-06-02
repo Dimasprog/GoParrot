@@ -4,13 +4,13 @@ import {Provider} from "react-redux";
 import {createStackNavigator} from "@react-navigation/stack";
 import {NavigationContainer} from "@react-navigation/native";
 import Status from "../components/Status";
-import {store} from "../components/Store";
+import {reduxStore} from "../components/Storage";
 
 const Stack = createStackNavigator();
 
 function App() {
   return (
-    <Provider store={store}>
+    <Provider store={reduxStore}>
       <NavigationContainer>
         <Stack.Navigator
             initialRouteName="PostScreen"
